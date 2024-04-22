@@ -1,0 +1,26 @@
+service: aws-lambda-test
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-warmup
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+useDotenv: true
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: ap-northeast-2
+  runtime: nodejs20.x
+
+functions:
+  main:
+    handler: src/lambda.handler
+    environment:
+      NODE_ENV: ${self:provider.stage}
+      TEST: ${env:TEST}
+    events:
+      - http:
+          method: any
+          path: /

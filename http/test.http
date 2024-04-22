@@ -1,0 +1,3 @@
+### test
+GET {{nest-api}}/local
+Content-Type: application/json
